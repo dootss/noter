@@ -1,10 +1,23 @@
 import os
 import sys
 import hashlib
-from Cryptodome.Cipher import AES
-from Cryptodome.Util.Padding import pad, unpad
-from getpass import getpass
 import base64
+from getpass import getpass
+
+# i was having some really strange issue with this when
+# testing in different environments. for whatever
+# reason i had to import crypto in only a few
+# instances, but on some others, it worked fine
+# regardless, this should fix it
+try: 
+    from Cryptodome.Cipher       import AES
+    from Cryptodome.Util.Padding import pad, unpad
+except ImportError:
+    try:
+        from Crypto.Cipher       import AES
+        from Crypto.Util.Padding import pad, unpad
+    except ImportError:
+        raise ImportError("crypto module not found! ensure you intall pycryptodome/pycrypto")
 
 
 NOTES_DIR = 'cryptnotes'
