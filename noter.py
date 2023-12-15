@@ -124,15 +124,22 @@ def decrypt(encrypted_data):
     pt = unpad(cipher.decrypt(ct), BLOCK_SIZE)
     return pt.decode('utf-8')
 
+def sanitize_title(title):
+    # prevent user from creating directories with the title
+    return title.replace("/", "-").replace("\\", "-")
 
 def create_note():
     clear_screen()
     display_header()
     title = input(f"{AnsiColors.OKBLUE}Enter the title of your note:{AnsiColors.ENDC} ").strip()
+
     if title == "":
         # go away because no title was entered
         return
+    
+    title = sanitize_title(title)
     title = append_number_to_title(title)
+
     clear_screen()
     display_header()
     print(f"{AnsiColors.HEADER}Editing note: {title}{AnsiColors.ENDC}\n")
@@ -142,6 +149,7 @@ def create_note():
         save_note(title, note_content)
         print(f"{AnsiColors.OKGREEN}Note saved as '{title}'!{AnsiColors.ENDC}")
     else:
+        # tempted to just remove this and let people make empty notes admittedly
         print(f"{AnsiColors.WARNING}Empty note discarded.{AnsiColors.ENDC}")
 
 
