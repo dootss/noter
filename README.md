@@ -9,6 +9,8 @@ https://github.com/dootss/noter/assets/126783585/798a4549-e5a7-4d5c-aeab-6341851
 # Installation:
 - `git clone https://github.com/dootss/noter.git`
 - `cd noter`
-- `pip install -r requirements.txt`
-- `python noter.py`
+- `py -m pip install -r requirements.txt`
+- `py noter.py`
+
+or install via ZIP, and follow similar steps
 
