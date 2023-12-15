@@ -126,6 +126,9 @@ def decrypt(encrypted_data):
 
 def sanitize_title(title):
     # prevent user from creating directories with the title
+    # also prevent title from being too long
+    if len(title) > 150:
+        title = title[:150]
     return title.replace("/", "-").replace("\\", "-")
 
 def create_note():
